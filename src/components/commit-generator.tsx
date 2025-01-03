@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { CommitFormData, CommitType, CommitTypeOption } from '@/types/commit-form';
+import { CommitFormData, CommitMessageResponse, CommitType, CommitTypeOption } from '@/types/commit-form';
 import { generateCommitMessage } from '@/utils/generate-commit-message';
 import { CopyButton } from './copy-button';
 import { InfoTooltip } from './info-tooltip';
@@ -21,7 +21,7 @@ export default function CommitGenerator() {
     body: '',
   });
 
-  const [commitMessage, setCommitMessage] = useState('');
+  const [commitMessage, setCommitMessage] = useState<CommitMessageResponse>({commitMessage:"", commitMessageWithBody: ""});
   const [selectedTypeDescription, setSelectedTypeDescription] = useState(
     commitTypes.find(type => type.key === 'feat')?.description || ''
   );
@@ -119,19 +119,35 @@ export default function CommitGenerator() {
         </div>
         <div className="space-y-2">
           <div className="flex items-center space-x-2">
-            <Label htmlFor="generated-commit">Generated Git command</Label>
+            <Label htmlFor="generated-commit">Generated Git commit message</Label>
             <InfoTooltip content="The complete git commit command based on your input" />
           </div>
           <div className="flex items-center space-x-2">
             <Input
               id="generated-commit"
-              value={commitMessage}
+              value={commitMessage.commitMessage}
               readOnly
               className="flex-grow"
             />
-            <CopyButton text={commitMessage} />
+            <CopyButton text={commitMessage.commitMessage} />
           </div>
         </div>
+        <div className="space-y-2">
+          <div className="flex items-center space-x-2">
+            <Label htmlFor="generated-commit">Generated Git command</Label>
+            <InfoTooltip content="The complete git commit message based on your input" />
+          </div>
+          <div className="flex items-center space-x-2">
+            <Input
+              id="generated-commit"
+              value={commitMessage.commitMessageWithBody}
+              readOnly
+              className="flex-grow"
+            />
+            <CopyButton text={commitMessage.commitMessageWithBody} />
+          </div>
+        </div>
+        
       </CardContent>
     </Card>
   );

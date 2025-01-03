@@ -14,3 +14,8 @@ export interface CommitTypeOption {
   description: string;
 }
 
+export interface CommitMessageResponse {
+    commitMessage: string;
+    commitMessageWithBody: string
+  }
+
