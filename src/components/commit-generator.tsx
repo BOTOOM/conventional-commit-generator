@@ -101,7 +101,7 @@ export default function CommitGenerator() {
             id="tickets"
             value={formData.tickets}
             onChange={(e) => handleChange('tickets', e.target.value)}
-            placeholder="E.g., TICKET-123, TICKET-456"
+            placeholder="E.g., TICKET-123, 33444"
           />
         </div>
         <div className="space-y-2">
