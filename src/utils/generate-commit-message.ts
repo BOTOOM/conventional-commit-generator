@@ -8,12 +8,12 @@ export function generateCommitMessage(data: CommitFormData): string {
   commitMessage += `: ${message}`;
   
   if (tickets) {
-    const ticketList = tickets.split(',').map(ticket => ticket.trim());
-    commitMessage += ` [${ticketList.join(', ')}]`;
+    const ticketList = tickets.split(',').map(ticket => `#${ticket.trim()}`);
+    commitMessage += ` ${ticketList.join(' ')}`;
   }
   
   if (body) {
-    commitMessage += `\n\n${body}`;
+    commitMessage += `" -m "${body}`;
   }
   
   return `git commit -m "${commitMessage}"`;

@@ -6,10 +6,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { CommitFormData, CommitType } from '../types/commit-form';
-import { generateCommitMessage } from '../utils/generate-commit-message';
+import { CommitFormData, CommitType, CommitTypeOption } from '@/types/commit-form';
+import { generateCommitMessage } from '@/utils/generate-commit-message';
 import { CopyButton } from './copy-button';
 import { InfoTooltip } from './info-tooltip';
+import { commitTypes } from '../data/commit-types';
 
 export default function CommitGenerator() {
   const [formData, setFormData] = useState<CommitFormData>({
@@ -21,6 +22,9 @@ export default function CommitGenerator() {
   });
 
   const [commitMessage, setCommitMessage] = useState('');
+  const [selectedTypeDescription, setSelectedTypeDescription] = useState(
+    commitTypes.find(type => type.key === 'feat')?.description || ''
+  );
 
   useEffect(() => {
     setCommitMessage(generateCommitMessage(formData));
@@ -28,6 +32,10 @@ export default function CommitGenerator() {
 
   const handleChange = (field: keyof CommitFormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    if (field === 'type') {
+      const selectedType = commitTypes.find(type => type.key === value);
+      setSelectedTypeDescription(selectedType?.description || '');
+    }
   };
 
   return (
@@ -40,7 +48,7 @@ export default function CommitGenerator() {
           <div className="space-y-2">
             <div className="flex items-center space-x-2">
               <Label htmlFor="type">Type</Label>
-              <InfoTooltip content="The type of change that you're committing" />
+              <InfoTooltip content={selectedTypeDescription} />
             </div>
             <Select
               value={formData.type}
@@ -50,10 +58,11 @@ export default function CommitGenerator() {
                 <SelectValue placeholder="Select type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="feat">feat</SelectItem>
-                <SelectItem value="fix">fix</SelectItem>
-                <SelectItem value="docs">docs</SelectItem>
-                <SelectItem value="test">test</SelectItem>
+                {commitTypes.map((type: CommitTypeOption) => (
+                  <SelectItem key={type.key} value={type.key}>
+                    {type.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
