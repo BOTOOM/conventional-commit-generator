@@ -1,0 +1,360 @@
+# Conventional Commit Generator - Full Documentation
+
+> A comprehensive free online tool to generate conventional commit messages for Git following the conventional commits specification.
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Commit Types Reference](#commit-types-reference)
+4. [Usage Guide](#usage-guide)
+5. [URL Parameters](#url-parameters)
+6. [Examples](#examples)
+7. [Technical Details](#technical-details)
+8. [Integration Tips](#integration-tips)
+
+## Overview
+
+Conventional Commit Generator is a developer productivity tool designed to help teams maintain consistent Git commit messages. It implements the [Conventional Commits](https://www.conventionalcommits.org/) specification v1.0.0 and aligns with [Angular commit guidelines](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit-message-header).
+
+### Why Use Conventional Commits?
+
+- **Automatic Changelog Generation**: Tools can parse commit history to generate changelogs
+- **Semantic Versioning**: Automatically determine version bumps based on commit types
+- **Clear Communication**: Team members understand changes at a glance
+- **CI/CD Integration**: Trigger specific workflows based on commit types
+
+## Features
+
+### Core Features
+
+1. **Commit Type Selection**
+   - Dropdown with all standard conventional commit types
+   - Visual descriptions for each type
+   - Keyboard accessible
+
+2. **Scope Support**
+   - Optional field for specifying affected area
+   - Common scopes: api, auth, ui, core, docs, tests
+
+3. **Message Input**
+   - Main commit message with 100 character limit
+   - Real-time character count
+   - Follows imperative mood convention
+
+4. **Ticket References**
+   - Comma-separated ticket numbers
+   - Automatic formatting with # prefix
+   - Custom prefix support for project-specific formats
+
+5. **Ticket Prefix**
+   - Add project-specific prefixes (e.g., AB, JIRA, GH)
+   - Persisted via URL query parameters
+   - Shareable URLs with pre-configured prefix
+
+6. **Output Generation**
+   - Commit message only
+   - Full git commit command
+   - One-click copy to clipboard
+
+## Commit Types Reference
+
+### Primary Types
+
+| Type | Description | Triggers Version Bump |
+|------|-------------|----------------------|
+| feat | New feature | MINOR |
+| fix | Bug fix | PATCH |
+
+### Secondary Types
+
+| Type | Description | Version Impact |
+|------|-------------|----------------|
+| docs | Documentation changes | None |
+| test | Adding or fixing tests | None |
+| refactor | Code restructuring | None |
+| style | Formatting, whitespace | None |
+| perf | Performance improvements | PATCH |
+| build | Build system changes | None |
+| ci | CI/CD configuration | None |
+
+### Detailed Type Descriptions
+
+#### feat (Feature)
+A new feature for the user or a significant addition to the codebase. This type triggers a MINOR version bump in semantic versioning.
+
+Examples:
+- `feat(auth): add OAuth2 login support`
+- `feat(api): implement user search endpoint`
+- `feat: add dark mode toggle`
+
+#### fix (Bug Fix)
+A bug fix for the user or a fix to a problem in the codebase. This type triggers a PATCH version bump.
+
+Examples:
+- `fix(auth): resolve token refresh race condition`
+- `fix(ui): correct button alignment on mobile`
+- `fix: handle null user gracefully`
+
+#### docs (Documentation)
+Changes to documentation only. No code changes.
+
+Examples:
+- `docs: update API documentation`
+- `docs(readme): add installation instructions`
+- `docs: fix typo in contributing guide`
+
+#### test (Tests)
+Adding missing tests or correcting existing tests.
+
+Examples:
+- `test(auth): add unit tests for login flow`
+- `test: increase coverage for utils`
+- `test(api): fix flaky integration test`
+
+#### refactor (Refactoring)
+A code change that neither fixes a bug nor adds a feature. Improves code quality without changing behavior.
+
+Examples:
+- `refactor(auth): extract validation logic`
+- `refactor: simplify error handling`
+- `refactor(api): convert to async/await`
+
+#### style (Style)
+Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
+
+Examples:
+- `style: format code with prettier`
+- `style(components): fix indentation`
+- `style: remove trailing whitespace`
+
+#### perf (Performance)
+A code change that improves performance.
+
+Examples:
+- `perf(api): add database query caching`
+- `perf: lazy load images`
+- `perf(search): optimize search algorithm`
+
+#### build (Build)
+Changes that affect the build system or external dependencies.
+
+Examples:
+- `build: upgrade webpack to v5`
+- `build(deps): update react to 19.0`
+- `build: configure tree shaking`
+
+#### ci (Continuous Integration)
+Changes to CI configuration files and scripts.
+
+Examples:
+- `ci: add GitHub Actions workflow`
+- `ci(deploy): configure automatic deployments`
+- `ci: add code coverage reporting`
+
+## Usage Guide
+
+### Step-by-Step
+
+1. **Select Commit Type**
+   - Click the Type dropdown
+   - Choose the appropriate type for your change
+   - Read the description tooltip for guidance
+
+2. **Add Scope (Optional)**
+   - Enter a scope if the change affects a specific area
+   - Use lowercase, single word or hyphenated
+   - Examples: auth, user-profile, api-v2
+
+3. **Write Main Message**
+   - Use imperative mood ("add" not "added")
+   - Keep under 100 characters
+   - Be specific but concise
+
+4. **Add Ticket References**
+   - Enter ticket numbers separated by commas
+   - Numbers only, prefix is added automatically
+   - Example: 1234, 5678, 9012
+
+5. **Set Ticket Prefix (Optional)**
+   - Enter your project's ticket prefix
+   - Common prefixes: JIRA, AB, GH, ISSUE
+   - Leave empty for standard # prefix
+
+6. **Copy Output**
+   - Click copy button next to desired output
+   - "Generated Git commit message" - message only
+   - "Generated Git command" - full git commit -m command
+
+### Keyboard Shortcuts
+
+- Tab: Navigate between fields
+- Enter: In select, confirms selection
+- Escape: Close dropdowns
+
+## URL Parameters
+
+### Available Parameters
+
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| prefix | Pre-fill ticket prefix | ?prefix=AB |
+
+### Usage Examples
+
+```
+# Set ticket prefix to AB
+https://conventional-commit-generator.vercel.app?prefix=AB
+
+# Set ticket prefix to JIRA
+https://conventional-commit-generator.vercel.app?prefix=JIRA
+```
+
+### Team Sharing
+
+Share a pre-configured URL with your team:
+1. Set your project's ticket prefix
+2. Copy the URL from browser (includes ?prefix=XXX)
+3. Share with team members
+4. Everyone uses consistent ticket formatting
+
+## Examples
+
+### Basic Feature Commit
+
+**Input:**
+- Type: feat
+- Message: add user registration form
+
+**Output:**
+```
+feat: add user registration form
+```
+
+### Feature with Scope
+
+**Input:**
+- Type: feat
+- Scope: auth
+- Message: implement password reset flow
+
+**Output:**
+```
+feat(auth): implement password reset flow
+```
+
+### Bug Fix with Tickets
+
+**Input:**
+- Type: fix
+- Scope: api
+- Message: resolve null pointer in user service
+- Tickets: 1234, 5678
+
+**Output:**
+```
+fix(api): resolve null pointer in user service #1234 #5678
+```
+
+### Feature with Custom Prefix
+
+**Input:**
+- Type: feat
+- Scope: dashboard
+- Message: add analytics widget
+- Tickets: 100, 101
+- Prefix: AB
+
+**Output:**
+```
+feat(dashboard): add analytics widget AB#100 AB#101
+```
+
+### Full Git Command
+
+**Input:**
+- Type: docs
+- Message: update README with examples
+- Body: Added installation guide and usage examples
+
+**Output:**
+```
+git commit -m "docs: update README with examples" -m "Added installation guide and usage examples"
+```
+
+## Technical Details
+
+### Technology Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **UI Library**: React 19
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 3.4
+- **Components**: shadcn/ui (New York style)
+- **Icons**: Lucide React
+
+### Architecture
+
+- Client-side only application
+- No backend or database required
+- All processing happens in browser
+- URL state management for sharing
+
+### Browser Support
+
+- Chrome 111+
+- Firefox 111+
+- Safari 16.4+
+- Edge 111+
+
+### Performance
+
+- Static site generation
+- Optimized bundle size
+- No external API calls
+- Instant message generation
+
+## Integration Tips
+
+### With Git Hooks
+
+Use with husky to validate commit messages:
+
+```bash
+# .husky/commit-msg
+npx commitlint --edit $1
+```
+
+### With CI/CD
+
+Parse commits for automated releases:
+
+```yaml
+# GitHub Actions example
+- uses: semantic-release/semantic-release@v21
+```
+
+### With Changelog Tools
+
+Generate changelogs from commits:
+
+```bash
+npx conventional-changelog -p angular -i CHANGELOG.md -s
+```
+
+## Links
+
+- **Website**: https://conventional-commit-generator.vercel.app
+- **GitHub Repository**: https://github.com/BOTOOM/conventional-commit-generator
+- **Conventional Commits Specification**: https://www.conventionalcommits.org/en/v1.0.0/
+- **Angular Commit Guidelines**: https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit-message-header
+- **Semantic Versioning**: https://semver.org/
+
+## Support
+
+For issues, feature requests, or contributions, please visit the [GitHub repository](https://github.com/BOTOOM/conventional-commit-generator).
+
+---
+
+*Last updated: December 2024*
+*Version: 1.0.0*

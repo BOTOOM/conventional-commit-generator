@@ -1,0 +1,78 @@
+# Conventional Commit Generator
+
+> A free online tool to generate conventional commit messages for Git following the conventional commits specification.
+
+## Overview
+
+Conventional Commit Generator is a developer tool that helps create standardized Git commit messages. It follows the [Conventional Commits](https://www.conventionalcommits.org/) specification and [Angular commit guidelines](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit-message-header).
+
+## Features
+
+- **Commit Type Selection**: Choose from feat, fix, docs, test, refactor, style, perf, build, ci
+- **Scope Support**: Add optional scope to specify the section of codebase
+- **Ticket Prefix**: Add custom prefix to ticket references (e.g., AB#123, JIRA#456)
+- **URL Sharing**: Share URLs with pre-filled ticket prefix via query parameters
+- **Copy to Clipboard**: One-click copy for commit message and full git command
+- **Real-time Preview**: See generated commit message as you type
+
+## Commit Types
+
+- **feat**: A new feature for the user or a significant addition to the codebase
+- **fix**: A bug fix for the user or a fix to a problem in the codebase
+- **docs**: Changes to documentation only
+- **test**: Adding missing tests or correcting existing tests
+- **refactor**: A code change that neither fixes a bug nor adds a feature
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc)
+- **perf**: A code change that improves performance
+- **build**: Changes that affect the build system or external dependencies
+- **ci**: Changes to CI configuration files and scripts
+
+## Usage
+
+1. Select a commit type (feat, fix, docs, etc.)
+2. Optionally add a scope (e.g., auth, api, ui)
+3. Write your main commit message (max 100 characters)
+4. Add related ticket numbers (comma-separated)
+5. Optionally add a ticket prefix for your project
+6. Copy the generated commit message or full git command
+
+## URL Parameters
+
+- `prefix`: Pre-fill the ticket prefix field (e.g., `?prefix=AB` will set ticket prefix to "AB")
+
+## Example Output
+
+Input:
+- Type: feat
+- Scope: auth
+- Message: add OAuth2 login support
+- Tickets: 1234, 5678
+- Prefix: AB
+
+Output:
+```
+feat(auth): add OAuth2 login support AB#1234 AB#5678
+```
+
+## Technology Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- shadcn/ui components
+
+## Links
+
+- Website: https://conventional-commit-generator.vercel.app
+- GitHub: https://github.com/BOTOOM/conventional-commit-generator
+- Conventional Commits Spec: https://www.conventionalcommits.org/en/v1.0.0/
+- Angular Commit Guidelines: https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit-message-header
+
+## API
+
+This is a client-side only application with no backend API. All commit message generation happens in the browser.
+
+## License
+
+Open source project available on GitHub.

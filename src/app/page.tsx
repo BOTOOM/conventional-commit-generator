@@ -1,45 +1,45 @@
+import { Suspense } from "react";
+import { Github } from "lucide-react";
 import CommitGenerator from "@/components/commit-generator";
-import Image from "next/image";
+import { CommitTypesPanel } from "@/components/commit-types-panel";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="">
-      {/* <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]"></div> */}
-      <main className="container mx-auto mt-2 mb-4">
-        <CommitGenerator />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <header className="bg-white dark:bg-gray-800 shadow-sm">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-700 dark:text-slate-200 text-center flex-1">
+              Conventional Commit Generator
+            </h1>
+            <a
+              href="https://github.com/BOTOOM/conventional-commit-generator"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" size="icon" className="ml-4">
+                <Github className="h-5 w-5" />
+                <span className="sr-only">GitHub Repository</span>
+              </Button>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left Column - Commit Types */}
+          <CommitTypesPanel />
+          
+          {/* Right Column - Generator Form */}
+          <Suspense fallback={<div className="h-full animate-pulse bg-gray-200 rounded-lg" />}>
+            <CommitGenerator />
+          </Suspense>
+        </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://www.conventionalcommits.org/en/v1.0.0/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Conventional commit
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit-message-header"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Angular commits docs
-        </a>
-      </footer>
     </div>
   );
 }

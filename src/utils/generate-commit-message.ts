@@ -3,7 +3,7 @@ import { CommitFormData, CommitMessageResponse } from "@/types/commit-form";
 export function generateCommitMessage(
   data: CommitFormData
 ): CommitMessageResponse {
-  const { type, scope, message, tickets, body } = data;
+  const { type, scope, message, tickets, ticketPrefix, body } = data;
 
   let commitMessage = `${type}`;
   let commitMessageWithBody = "";
@@ -11,7 +11,8 @@ export function generateCommitMessage(
   commitMessage += `: ${message}`;
 
   if (tickets) {
-    const ticketList = tickets.split(",").map((ticket) => `#${ticket.trim()}`);
+    const prefix = ticketPrefix ? `${ticketPrefix}#` : "#";
+    const ticketList = tickets.split(",").map((ticket) => `${prefix}${ticket.trim()}`);
     commitMessage += ` ${ticketList.join(" ")}`;
   }
 
