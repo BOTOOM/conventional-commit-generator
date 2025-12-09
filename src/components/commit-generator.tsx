@@ -162,7 +162,7 @@ export default function CommitGenerator() {
         </div>
 
         <div className="space-y-2">
-          <Label>Generated Git commit message</Label>
+          <Label>Generated Git commit message for tool like vs-code</Label>
           <div className="flex items-center space-x-2">
             <Input
               value={commitMessage.commitMessage}
