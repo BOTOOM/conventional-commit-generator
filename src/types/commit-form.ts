@@ -1,4 +1,4 @@
-export type CommitType = 'feat' | 'fix' | 'docs' | 'test' | 'refactor' | 'style' | 'perf' | 'build' | 'ci';
+export type CommitType = 'feat' | 'fix' | 'docs' | 'test' | 'refactor' | 'style' | 'perf' | 'build' | 'ci' | 'chore' | 'revert';
 
 export interface CommitFormData {
   type: CommitType;

@@ -43,7 +43,15 @@ export const commitTypes = [
         key: 'ci',
         label: 'CI',
         description: 'Changes to our CI configuration files and scripts (examples: Github Actions, SauceLabs)'
-      }
+    },
+    {
+      key: 'chore',
+      label: 'Chore',
+      description: "Other changes that don't modify src or test files"
+    },
+    {
+      key: 'revert',
+      label: 'Revert',
+      description: 'Reverts a previous commit'
+    }
   ];
-  
-  
